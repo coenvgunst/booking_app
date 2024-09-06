@@ -1,0 +1,27 @@
+<%= form_with(model: booking_treatment) do |form| %>
+  <% if booking_treatment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(booking_treatment.errors.count, "error") %> prohibited this booking_treatment from being saved:</h2>
+
+      <ul>
+        <% booking_treatment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :booking_id, style: "display: block" %>
+    <%= form.text_field :booking_id %>
+  </div>
+
+  <div>
+    <%= form.label :treatment_id, style: "display: block" %>
+    <%= form.text_field :treatment_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

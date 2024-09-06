@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Booking treatments</h1>
+
+<div id="booking_treatments">
+  <% @booking_treatments.each do |booking_treatment| %>
+    <%= render booking_treatment %>
+    <p>
+      <%= link_to "Show this booking treatment", booking_treatment %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New booking treatment", new_booking_treatment_path %>

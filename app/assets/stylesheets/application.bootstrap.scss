@@ -1,0 +1,43 @@
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
+
+/* Custom styles for the calendar */
+.month-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+  }
+  
+  .calendar-date {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .calendar-date:hover {
+    background-color: #e2e6ea;
+  }
+  
+  .calendar-date.selectable {
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .calendar-date.selectable:hover {
+    background-color: #cce5ff;
+  }
+  
+  .calendar-date p {
+    font-size: 12px;
+    margin: 5px 0;
+    color: #333;
+  }
+  
