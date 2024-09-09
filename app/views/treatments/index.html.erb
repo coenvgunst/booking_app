@@ -2,13 +2,16 @@
 
 <h1>Treatments</h1>
 
-<div id="treatments">
+<div id="treatments" class="treatments-list">
   <% @treatments.each do |treatment| %>
-    <%= render treatment %>
-    <p>
-      <%= link_to "Show this treatment", treatment %>
-    </p>
+    <div class="treatment-item">
+      <h3><%= treatment.name %></h3>
+      <p><%= treatment.description %>
+      <div class="treatment-actions">
+        <%= link_to "Book Now", new_booking_path(treatment_id: treatment.id), class: 'btn btn-success' %>
+        <%# <%= link_to "Show this treatment", treatment_path(treatment), class: 'btn btn-primary' %> 
+      </div>
+      </p>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New treatment", new_treatment_path %>
