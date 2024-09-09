@@ -1,10 +1,26 @@
-<p style="color: green"><%= notice %></p>
+<div class="confirmation-container">
+  <h1 style="color: green;">Booking Confirmed!</h1>
+  <p>Your booking has been successfully created. Thank you for choosing 'Your company here'!</p>
 
-<%= render @booking %>
+  <div class="booking-details">
+    <h3>Booking Details</h3>
+    <p><strong>Name:</strong> <%= @booking.customer.name %></p>
+    <p><strong>Email:</strong> <%= @booking.customer.email %></p>
+    <p><strong>Phone Number:</strong> <%= @booking.customer.phone_number %></p>
+    <p><strong>Date:</strong> <%= @booking.date.strftime('%B %d, %Y') %></p>
+    <p><strong>Time:</strong> <%= @booking.time.strftime('%I:%M %p') %></p>
+    
+    <h4>Treatments:</h4>
+    <ul>
+      <% @booking.treatments.each do |treatment| %>
+        <li><%= treatment.name %></li>
+      <% end %>
+    </ul>
+  </div>
 
-<div>
-  <%= link_to "Edit this booking", edit_booking_path(@booking) %> |
-  <%= link_to "Back to bookings", bookings_path %>
-
-  <%= button_to "Destroy this booking", @booking, method: :delete %>
+  <div class="confirmation-actions">
+    <%= link_to "Edit this booking", edit_booking_path(@booking), class: 'btn btn-primary' %>
+    <%= link_to "Back to bookings", bookings_path, class: 'btn btn-secondary' %>
+    <%= button_to "Destroy this booking", @booking, method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger' %>
+  </div>
 </div>

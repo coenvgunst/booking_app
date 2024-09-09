@@ -1,85 +1,63 @@
-<h1>Welkom op de website voor mem</h1>
-<p>Boek hier een afspraak</p>
+<div class="form-container">
 
-<!-- Display the Calendar with Selectable Dates -->
-<%# Line below renders in the bookings which I leave out for now %>
-<%# <%= month_calendar events: @bookings do |date, bookings| %>
-<%= month_calendar do |date, bookings| %>
-  <div class="calendar-date <%= 'selectable' if date >= Date.today %>" data-date="<%= date %>">
-    <span><%= date.day %></span>
-    <% bookings.each do |booking| %>
-      <p><%= booking.customer.name %> - <%= booking.treatments.map(&:name).join(", ") %></p>
+  <div class="navigation-buttons">
+    <%= link_to 'About', root_path, class: 'btn btn-primary'%>
+    <%= link_to 'Treatments', treatments_path, class: 'btn btn-primary' %>
+    <%= link_to 'Book Now', bookings_path, class: 'btn btn-success' %>
+    <%= link_to 'Admin', rails_admin_path, class: 'btn btn-secondary' %>
+  </div>
+
+  <div class="form-box">
+    <h1>Booking for 'your company here'</h1>
+    <p>Intro paragraph describing the business.</p>
+
+    <p>
+    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </p>
+
+    <%= form_with model: Booking.new, url: bookings_path, local: true do |f| %>
+      <h3>Please fill in your details</h3>
+      <div>
+        <%= f.label :customer_name, "Name" %><br>
+        <%= f.text_field :customer_name, required: true %>
+      </div>
+
+      <div>
+        <%= f.label :customer_email, "Email" %><br>
+        <%= f.email_field :customer_email, required: true %>
+      </div>
+
+      <div>
+        <%= f.label :customer_phone_number, "Phone Number" %><br>
+        <%= f.text_field :customer_phone_number, required: true %>
+      </div>
+
+      <h3>Booking Details</h3>
+      <div>
+        <%= f.label :date, "Date" %><br>
+        <%= f.date_field :date, id: "booking_date", required: true %>
+      </div>
+
+      <div>
+        <%= f.label :time, "Time" %><br>
+        <%= f.time_field :time, required: true %>
+      </div>
+
+      <div>
+        <h3><%= f.label :treatment_ids, "Treatments" %></h3>
+        <p>Select one or more treatments to make your booking</p>
+        <%= f.collection_check_boxes :treatment_ids, Treatment.all, :id, :name do |treatment| %>
+          <div>
+          <%= treatment.check_box %>
+          <%= treatment.label %>
+          </div>
+      <% end %>
+      </div>
+
+      <div>
+      <br>
+        <%= f.submit "Book Now" %>
+      </div>
     <% end %>
   </div>
-<% end %>
-
-<!-- Booking Form -->
-<%= form_with model: Booking.new, url: bookings_path, local: true do |f| %>
-  <!-- Customer Details -->
-  <h3>Customer Details</h3>
-  <div>
-    <%= f.label :customer_name, "Name" %><br>
-    <%= f.text_field :customer_name, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :customer_email, "Email" %><br>
-    <%= f.email_field :customer_email, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :customer_phone_number, "Phone Number" %><br>
-    <%= f.text_field :customer_phone_number, required: true %>
-  </div>
-
-  <!-- Booking Details -->
-  <h3>Booking Details</h3>
-  <div>
-    <%= f.label :date, "Date" %><br>
-    <%= f.date_field :date, id: "booking_date", required: true %>
-  </div>
-
-  <div>
-    <%= f.label :time, "Time" %><br>
-    <%= f.time_field :time, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :treatment_ids, "Treatments" %><br>
-    <%= f.collection_check_boxes :treatment_ids, Treatment.all, :id, :name %>
-  </div>
-
-  <div>
-    <%= f.label :status, "Status" %><br>
-    <%= f.text_field :status %>
-  </div>
-
-  <div>
-    <%= f.submit "Book Now" %>
-  </div>
-<% end %>
-
-<script>
-  // JavaScript to make dates selectable
-  document.addEventListener('DOMContentLoaded', function() {
-    // Select all elements with class 'calendar-date.selectable'
-    const dateElements = document.querySelectorAll('.calendar-date.selectable');
-
-    // Add click event listener to each date element
-    dateElements.forEach(function(element) {
-      element.addEventListener('click', function() {
-        // Get the data-date attribute value
-        const selectedDate = element.getAttribute('data-date');
-        
-        // Set the selected date to the input field
-        document.getElementById('booking_date').value = selectedDate;
-
-        // Remove the 'selected' class from all elements
-        dateElements.forEach(el => el.classList.remove('selected'));
-
-        // Add 'selected' class to the clicked element
-        element.classList.add('selected');
-      });
-    });
-  });
-</script>
+</div>
