@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_05_224521) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_09_092334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,23 +30,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_05_224521) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "timeslot_id"
     t.index ["customer_id"], name: "index_bookings_on_customer_id"
-  end
-
-  create_table "calendars", force: :cascade do |t|
-    t.bigint "booking_id", null: false
-    t.string "google_calendar_event_id"
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["booking_id"], name: "index_calendars_on_booking_id"
+    t.index ["timeslot_id"], name: "index_bookings_on_timeslot_id"
   end
 
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "timeslots", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.boolean "available", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -62,5 +62,5 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_05_224521) do
   add_foreign_key "booking_treatments", "bookings"
   add_foreign_key "booking_treatments", "treatments"
   add_foreign_key "bookings", "customers"
-  add_foreign_key "calendars", "bookings"
+  add_foreign_key "bookings", "timeslots"
 end

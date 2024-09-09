@@ -1,0 +1,19 @@
+<h1>Timeslot Details</h1>
+
+<p>
+  <strong>Start Time:</strong>
+  <%= @timeslot.start_time %>
+</p>
+
+<p>
+  <strong>End Time:</strong>
+  <%= @timeslot.end_time %>
+</p>
+
+<p>
+  <strong>Available:</strong>
+  <%= @timeslot.available? ? 'Yes' : 'No' %>
+</p>
+
+<%= link_to 'Edit', edit_timeslot_path(@timeslot) %> |
+<%= link_to 'Back to List', timeslots_path %>
